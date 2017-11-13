@@ -12,7 +12,7 @@ public class Mymemes extends AppCompatActivity {
     private ImageView listBtn;
     private ImageView homeBtn;
     private ImageView starBtn;
-    private Button mymemesBtn;
+    private ImageView mymemesBtn;
     private Button myfaveBtn;
 
     @Override
@@ -23,7 +23,7 @@ public class Mymemes extends AppCompatActivity {
         listBtn = (ImageView) findViewById(R.id.listBtn);
         homeBtn = (ImageView) findViewById(R.id.homeBtn);
         starBtn = (ImageView) findViewById(R.id.starBtn);
-        mymemesBtn = (Button) findViewById(R.id.mymemesBtn);
+        mymemesBtn = (ImageView) findViewById(R.id.mymemesBtn);
         myfaveBtn = (Button) findViewById(R.id.myfaveBtn);
 
         listBtn.setOnClickListener(new View.OnClickListener() {

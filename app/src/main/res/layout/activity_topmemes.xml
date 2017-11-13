@@ -11,13 +11,19 @@
         android:id="@+id/backBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/back"/>
+        android:src="@drawable/back"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="14dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:src="@drawable/topmemesicon"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Top memes"/>
+        android:layout_marginTop="12dp"
+        android:id="@+id/imageView2" />
 
 </RelativeLayout>

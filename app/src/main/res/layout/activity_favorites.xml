@@ -10,13 +10,19 @@
         android:id="@+id/backBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/back"/>
+        android:src="@drawable/back"
+        android:layout_alignBottom="@+id/faveBtn"
+        android:contentDescription="favorites"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="11dp" />
 
     <ImageView
         android:id="@+id/faveBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/star1"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:src="@drawable/favsicon"
+        android:contentDescription="back icon"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

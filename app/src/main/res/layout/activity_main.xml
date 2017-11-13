@@ -6,28 +6,32 @@
     android:background="#f4424b"
     tools:context="whaitua.penman.project.ames.ac.nz.badmemes.MainActivity">
 
-    <Button
+    <ImageView
         android:id="@+id/mainBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Bad memes"/>
+        android:layout_above="@+id/listBtn"
+        android:layout_marginBottom="99dp"
+        android:layout_toEndOf="@+id/starBtn"
+        android:contentDescription="main icon"
+        android:src="@drawable/badmemesicon" />
 
     <ImageView
         android:id="@+id/starBtn"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/star1"
-        android:layout_below="@+id/mainBtn"
-        android:layout_marginTop="120dp"/>
-    
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:contentDescription="favorite icon"
+        android:src="@drawable/star1" />
+
     <ImageView
         android:id="@+id/listBtn"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/list"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/starBtn"
-        android:layout_alignParentEnd="true" />
+        android:contentDescription="lsit icon"
+        android:src="@drawable/list" />
 
 </RelativeLayout>

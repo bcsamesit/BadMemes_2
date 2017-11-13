@@ -12,7 +12,7 @@ import android.widget.ImageView;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView listBtn;
-    private Button mainBtn;
+    private ImageView mainBtn;
     private ImageView starBtn;
 
     @Override
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listBtn = (ImageView) findViewById(R.id.listBtn);
-        mainBtn = (Button) findViewById(R.id.mainBtn);
+        mainBtn = (ImageView) findViewById(R.id.mainBtn);
         starBtn = (ImageView) findViewById(R.id.starBtn);
 
         listBtn.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Topmemes.class);
-                startActivity(intent);}
+                startActivity(intent);
+            }
         });
 
         starBtn.setOnClickListener(new View.OnClickListener() {
@@ -47,15 +48,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
 
-
-
-    }
+}
 
 
 
