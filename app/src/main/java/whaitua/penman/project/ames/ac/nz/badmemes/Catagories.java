@@ -17,52 +17,64 @@ public class Catagories extends AppCompatActivity {
     private Button CataAnime;
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
 
-        homeBtn = (ImageView)findViewById(R.id.homeBtn);
+        homeBtn = (ImageView) findViewById(R.id.homeBtn);
         CataGames = (Button) findViewById(R.id.CataGame);
         Catapolitics = (Button) findViewById(R.id.CataPolitics);
         cataedgy = (Button) findViewById(R.id.CataEdgy);
         CataAnime = (Button) findViewById(R.id.CataAnime);
 
-        homeBtn.setOnClickListener(new View.OnClickListener(){
+        homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Catagories.this, MainActivity.class);
-                startActivity(intent);}
-        });
-
-        CataGames.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Catagories.this, CataGames.class);
                 startActivity(intent);
             }
         });
 
-        CataAnime.setOnClickListener(new View.OnClickListener(){
+        CataGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Catagories.this, CataAnime.class);
+                Intent intent = new Intent(Catagories.this, MemeView.class);
+                intent.putExtra("Category", "Game");
+                ImageAdapter.category = "Game";
                 startActivity(intent);
             }
         });
 
-        Catapolitics.setOnClickListener(new View.OnClickListener(){
+        CataAnime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Catagories.this, CataPolitics.class);
-                startActivity(intent);}
+                Intent intent = new Intent(Catagories.this, MemeView.class);
+                intent.putExtra("Category", "Animation");
+                ImageAdapter.category = "Animation";
+                startActivity(intent);
+            }
         });
 
-        cataedgy.setOnClickListener(new View.OnClickListener(){
-
+        Catapolitics.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Catagories.this, CataEdgy.class);
-                startActivity(intent);}
+                Intent intent = new Intent(Catagories.this, MemeView.class);
+                intent.putExtra("Category", "Politics");
+                ImageAdapter.category = "Politics";
+                startActivity(intent);
+            }
+        });
+
+        cataedgy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Catagories.this, MemeView.class);
+                intent.putExtra("Category", "Edgy");
+                ImageAdapter.category = "Edgy";
+                startActivity(intent);
+            }
         });
 
     }

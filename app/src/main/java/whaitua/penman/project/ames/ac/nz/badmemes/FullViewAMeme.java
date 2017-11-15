@@ -6,14 +6,14 @@ import android.widget.ImageView;
 import android.content.Intent;
 
 
-public class CataAnimeList extends AppCompatActivity {
+public class FullViewAMeme extends AppCompatActivity {
 
     private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cata_anime_list);
+        setContentView(R.layout.fullview_ameme_layout);
 
         Intent intent = getIntent();
 
@@ -21,6 +21,16 @@ public class CataAnimeList extends AppCompatActivity {
         int position = intent.getExtras().getInt("id");
         ImageAdapter imageAdapter = new ImageAdapter(this);
         imageView = (ImageView) findViewById(R.id.singleView);
-        imageView.setImageResource(imageAdapter.animoo[position]);
+
+        //
+        if (ImageAdapter.category.contains("Game")) {
+            imageView.setImageResource(imageAdapter.gameo[position]);
+        } else if (ImageAdapter.category.contains("Animation")) {
+            imageView.setImageResource(imageAdapter.animoo[position]);
+        } else if(ImageAdapter.category.contains("Politics")) {
+            imageView.setImageResource(imageAdapter.politico[position]);
+        }
+
+
     }
 }

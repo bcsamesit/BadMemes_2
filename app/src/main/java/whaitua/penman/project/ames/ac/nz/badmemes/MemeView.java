@@ -8,11 +8,20 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 
-public class CataAnime extends AppCompatActivity {
+public class MemeView extends AppCompatActivity {
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private String category = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cata_anime);
+        setContentView(R.layout.memeview_layout);
+
+        ///////////////////////////////////////////////////////////////////////
+        //Extract the data associated with Intent
+        category = getIntent().getExtras().getString("Category");
+
 
         ///////////////////////////////////////////////////////////////////////
         GridView gridView = (GridView) findViewById(R.id.gridview);
@@ -21,9 +30,8 @@ public class CataAnime extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
                 //Send intent to SingleViewActivity
-                Intent intent = new Intent(getApplicationContext(), CataAnimeList.class);
+                Intent intent = new Intent(getApplicationContext(), FullViewAMeme.class);
                 //Pass image index by putExtra
                 intent.putExtra("id", position);
                 //StartActivity
@@ -31,7 +39,6 @@ public class CataAnime extends AppCompatActivity {
 
             }
         });
-
 
 
     }

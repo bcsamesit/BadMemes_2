@@ -21,13 +21,8 @@
         <activity android:name=".Mymemes" />
         <activity android:name=".Uploads" />
         <activity android:name=".Favorites" />
-        <activity android:name=".CataAnime" />
-        <activity android:name=".CataAnimeList"/>
-        <activity android:name=".CataEdgy"/>
-        <activity android:name=".CataPolitics"/>
-        <activity android:name=".CataGames"/>
-
-
+        <activity android:name=".MemeView" />
+        <activity android:name=".FullViewAMeme"/>
 
 
     </application>
