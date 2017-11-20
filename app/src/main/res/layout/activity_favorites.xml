@@ -6,24 +6,32 @@
     android:background="#f4424b"
     tools:context=".Favorites">
 
-    <ImageView
-        android:id="@+id/backBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/back"
-        android:layout_alignBottom="@+id/faveBtn"
-        android:contentDescription="favorites"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginBottom="11dp" />
+
 
     <ImageView
         android:id="@+id/faveBtn"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:src="@drawable/favsicon"
-        android:contentDescription="back icon"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="back icon"
+        android:src="@drawable/favsicon" />
+
+    <ImageView
+        android:id="@+id/faveMeme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <GridView
+        android:id="@+id/gridviewFave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/faveBtn"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
+
 
 </RelativeLayout>

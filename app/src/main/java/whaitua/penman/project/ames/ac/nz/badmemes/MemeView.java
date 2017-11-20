@@ -6,17 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 
 public class MemeView extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private String category = "";
+    private ImageView backBtn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memeview_layout);
+
+
 
         ///////////////////////////////////////////////////////////////////////
         //Extract the data associated with Intent
@@ -34,6 +38,7 @@ public class MemeView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FullViewAMeme.class);
                 //Pass image index by putExtra
                 intent.putExtra("id", position);
+                intent.putExtra("from", "MemeView");
                 //StartActivity
                 startActivity(intent);
 

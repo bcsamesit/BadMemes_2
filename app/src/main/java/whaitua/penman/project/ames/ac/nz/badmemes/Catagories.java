@@ -15,6 +15,7 @@ public class Catagories extends AppCompatActivity {
     private Button Catapolitics;
     private Button cataedgy;
     private Button CataAnime;
+    private ImageView starBtn;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,6 +24,8 @@ public class Catagories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
 
+
+        starBtn = (ImageView) findViewById(R.id.starBtn);
         homeBtn = (ImageView) findViewById(R.id.homeBtn);
         CataGames = (Button) findViewById(R.id.CataGame);
         Catapolitics = (Button) findViewById(R.id.CataPolitics);
@@ -33,6 +36,14 @@ public class Catagories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Catagories.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        starBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Catagories.this, Favorites.class);
                 startActivity(intent);
             }
         });
@@ -71,8 +82,8 @@ public class Catagories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Catagories.this, MemeView.class);
-                intent.putExtra("Category", "Edgy");
-                ImageAdapter.category = "Edgy";
+                intent.putExtra("Category", "Sports");
+                ImageAdapter.category = "Sports";
                 startActivity(intent);
             }
         });

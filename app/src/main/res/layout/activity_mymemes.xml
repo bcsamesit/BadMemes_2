@@ -51,13 +51,14 @@
         android:src="@drawable/memesprofile"
         android:text="My memes" />
 
-    <Button
+    <ImageView
         android:id="@+id/myfaveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/mymemesBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="74dp"
+        android:src="@drawable/favsicon"
         android:text="Favourites" />
 
 </RelativeLayout>

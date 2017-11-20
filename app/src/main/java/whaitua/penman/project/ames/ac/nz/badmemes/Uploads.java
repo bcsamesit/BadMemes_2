@@ -16,13 +16,5 @@ public class Uploads extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uploads);
 
-        backBtn = (ImageView) findViewById(R.id.backBtn);
-
-        backBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Uploads.this, Mymemes.class);
-                startActivity(intent);}
-        });
     }
 }

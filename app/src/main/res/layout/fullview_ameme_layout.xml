@@ -8,10 +8,37 @@
     tools:context=".FullViewAMeme">
 
     <ImageView
-        android:contentDescription="meme"
         android:id="@+id/singleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="meme"
         android:scaleType="centerInside" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/starBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="37dp"
+            android:gravity="center_horizontal"
+            android:src="@drawable/addfave" />
+
+        <ImageView
+            android:id="@+id/shareBtn"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/share" />
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>

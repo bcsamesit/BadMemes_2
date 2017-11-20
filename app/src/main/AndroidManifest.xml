@@ -17,12 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Catagories" />
-        <activity android:name=".Topmemes" />
         <activity android:name=".Mymemes" />
         <activity android:name=".Uploads" />
         <activity android:name=".Favorites" />
         <activity android:name=".MemeView" />
         <activity android:name=".FullViewAMeme"/>
+
 
 
     </application>

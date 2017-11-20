@@ -13,7 +13,7 @@ public class Mymemes extends AppCompatActivity {
     private ImageView homeBtn;
     private ImageView starBtn;
     private ImageView mymemesBtn;
-    private Button myfaveBtn;
+    private ImageView myfaveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class Mymemes extends AppCompatActivity {
         homeBtn = (ImageView) findViewById(R.id.homeBtn);
         starBtn = (ImageView) findViewById(R.id.starBtn);
         mymemesBtn = (ImageView) findViewById(R.id.mymemesBtn);
-        myfaveBtn = (Button) findViewById(R.id.myfaveBtn);
+        myfaveBtn = (ImageView) findViewById(R.id.myfaveBtn);
 
         listBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +43,7 @@ public class Mymemes extends AppCompatActivity {
         starBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Mymemes.this, Topmemes.class);
+                Intent intent = new Intent(Mymemes.this, Favorites.class);
                 startActivity(intent);
             }
         });
