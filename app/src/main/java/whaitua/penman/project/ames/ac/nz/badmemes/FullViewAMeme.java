@@ -1,6 +1,10 @@
 package whaitua.penman.project.ames.ac.nz.badmemes;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -122,12 +126,30 @@ public class FullViewAMeme extends AppCompatActivity {
         shareBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                Drawable mDrawable = imageView.getDrawable();
+                Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
+
+                Uri uri = Uri.parse("http://www.google.com");
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image I want to share", null);
+
+                if (path != null) {
+                    uri = Uri.parse(path);
+                }
+
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.setType("image/*");
+                startActivity(Intent.createChooser(shareIntent, "Share Image"));
+
+                /*
                 //image uri
                 //imagePath = Uri.parse("android.resource://whaitua.penman.project.ames.ac.nz.badmemes/" + R.drawable.sample_1);
 
                 Uri imagePath = Uri.parse(imagePathStr);
                 // share image
                 shareImage(imagePath);
+                */
             }
         });
 
@@ -167,6 +189,7 @@ public class FullViewAMeme extends AppCompatActivity {
                     } else {
                         memeBuild.append(meme + "|");
                     }
+
                 }
 
                 Toast.makeText(getApplicationContext(), "The new fave list: " + memeBuild, Toast.LENGTH_SHORT).show();
