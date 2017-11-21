@@ -141,31 +141,7 @@ public class Favorites extends AppCompatActivity {
                 imageView = (ImageView) convertView;
             }
 
-            ////////////////////////////////////
-           /*
-            savedMemeArray = new int[savedmeme.length];
-
-            //Loop through all the elements in the "savedmeme" array of string
-            int index = 0;
-            for (String meme : savedmeme) {
-                String category = meme.split(",")[0].toString();
-                String arrayIndexStr = meme.split(",")[1].toString();
-                int arrayIndex = Integer.parseInt(arrayIndexStr);
-
-                //Build the array of saved meme
-                if (category.contains("Animation")) {
-                    savedMemeArray[index] = animoo[arrayIndex];
-                    index++;
-                } else if (category.contains("Game")) {
-                    savedMemeArray[index] = gameo[arrayIndex];
-                    index++;
-                } else if (category.contains("Politics")) {
-                    savedMemeArray[index] = politico[arrayIndex];
-                    index++;
-                }
-            }
-            */
-
+            //////////////////////////////////////////////////////////////////////////////
             imageView.setImageResource(savedMemeArray[position]);
 
             return imageView;
