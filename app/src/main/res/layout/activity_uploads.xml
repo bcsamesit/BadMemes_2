@@ -6,12 +6,13 @@
     android:background="#f4424b"
     tools:context=".Uploads">
 
-    <Button
+    <ImageView
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:src="@drawable/upload"
         android:layout_marginTop="11dp"
         android:text="Uploads" />
 

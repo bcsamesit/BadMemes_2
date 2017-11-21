@@ -1,31 +1,14 @@
 package whaitua.penman.project.ames.ac.nz.badmemes;
 
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.content.Intent;
-
-import java.io.FileNotFoundException;
-
-
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.ByteArrayOutputStream;
-import java.net.URI;
 
 
 public class FullViewAMeme extends AppCompatActivity {
@@ -33,9 +16,12 @@ public class FullViewAMeme extends AppCompatActivity {
     private int position = 0;
     private String fromStr = "MemeView";
     private String category = "Game";
+    //
+    private ImageView removeBtn;
+    public int[] savedMemeArray;
+    private String[] savedmeme;
 
     private ImageView imageView;
-    private ImageView backBtn;
     private ImageView saveMeme;
     private SharedPreferences savedMemes;
     public static final String SAVED_MEMES = "SavedMemes";
@@ -44,14 +30,21 @@ public class FullViewAMeme extends AppCompatActivity {
     String imagePathStr = "";
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fullview_ameme_layout);
 
-
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ImageView shareBtn = (ImageView) findViewById(R.id.shareBtn);
+        removeBtn = (ImageView) findViewById(R.id.removeBtn);
         saveMeme = (ImageView) findViewById(R.id.starBtn);
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
         savedMemes = getSharedPreferences(SAVED_MEMES, 0);
+        savedmeme = savedMemes.getString("faveMeme", "").split("\\|");
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         Intent beep = getIntent();
@@ -110,10 +103,8 @@ public class FullViewAMeme extends AppCompatActivity {
 
                 SharedPreferences.Editor memeEdit = savedMemes.edit();
 
-
                 //Come back to ask dan
                 String allMemes = savedMemes.getString("faveMeme", "");
-
 
                 if (allMemes.length() > 0) {
                     String appendValue = allMemes + memeInfo;
@@ -128,7 +119,6 @@ public class FullViewAMeme extends AppCompatActivity {
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////
-        ImageView shareBtn = (ImageView) findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +131,57 @@ public class FullViewAMeme extends AppCompatActivity {
             }
         });
 
+
+        //If the meme image is in the favorite list, hide the "add" button
+        if (fromStr.contains("MemeView")) {
+            //Hide the "remove" button, set visible the "add" button
+            removeBtn.setVisibility(View.INVISIBLE);
+            saveMeme.setVisibility(View.VISIBLE);
+        } else {
+            //Hide the "add" button, visible "remove" button
+            removeBtn.setVisibility(View.VISIBLE);
+            saveMeme.setVisibility(View.INVISIBLE);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        //Click "remove fav" button
+        removeBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Remove the fave meme
+                /////////////////////////////////////////////////////////////////////////////////////////
+                final SharedPreferences memeList = getSharedPreferences(SAVED_MEMES, 0);
+                //Read all the memes in the fav list and split into a String array
+                String[] memeArray = memeList.getString("faveMeme", "").split("\\|");
+
+                /////
+                final StringBuilder memeBuild = new StringBuilder("");
+                for (String meme : memeArray) {
+                    String categoryRemove = meme.split(",")[0].toString();
+                    String arrayIndexStr = meme.split(",")[1].toString();
+                    int arrayIndex = Integer.parseInt(arrayIndexStr);
+
+                    if (category.contains(categoryRemove) && (position == arrayIndex)) {
+                        //Do nothing ==> don't append it to the list of fave
+                        Toast.makeText(getApplicationContext(), "Remove Favorite meme: " + meme, Toast.LENGTH_SHORT).show();
+                    } else {
+                        memeBuild.append(meme + "|");
+                    }
+                }
+
+                Toast.makeText(getApplicationContext(), "The new fave list: " + memeBuild, Toast.LENGTH_SHORT).show();
+
+                //Rewrite the new list of fave into Shared Preferences
+                SharedPreferences.Editor memeEdit = savedMemes.edit();
+                memeEdit.putString("faveMeme", memeBuild.toString());
+                memeEdit.commit();
+                finish();
+
+
+            }
+        });
+
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,8 +192,6 @@ public class FullViewAMeme extends AppCompatActivity {
         sharingIntent.putExtra(Intent.EXTRA_STREAM, imagePath);
         startActivity(Intent.createChooser(sharingIntent, "Share Image Using"));
     }
-
-
 }
 
 

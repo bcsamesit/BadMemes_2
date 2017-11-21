@@ -37,6 +37,15 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/share" />
 
+        <ImageView
+            android:id="@+id/removeBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/shareBtn"
+            android:src="@drawable/removebtn"
+            android:layout_marginStart="25dp" />
+
 
     </RelativeLayout>
 

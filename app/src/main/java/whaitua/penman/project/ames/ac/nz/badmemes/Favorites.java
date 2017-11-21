@@ -26,6 +26,8 @@ public class Favorites extends AppCompatActivity {
     private String selectedCategory;
     private int arrayIndex;
 
+    private SharedPreferences savedMemes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +36,11 @@ public class Favorites extends AppCompatActivity {
 
 
         /////////////////////////////////////////////////////////////////////////////////////////
-        final SharedPreferences savedMemes = getSharedPreferences(FullViewAMeme.SAVED_MEMES, 0);
-
+        savedMemes = getSharedPreferences(FullViewAMeme.SAVED_MEMES, 0);
         savedmeme = savedMemes.getString("faveMeme", "").split("\\|");
 
         //How many save memes
         numberOfFave = savedmeme.length;
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        //For testing
-        final StringBuilder memeBuild = new StringBuilder("");
-        for (String memes : savedmeme) {
-            memeBuild.append(memes + "\n");
-        }
-        //Toast
-        Toast.makeText(getApplicationContext(), "Favorite memes: " + memeBuild, Toast.LENGTH_SHORT).show();
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,6 +191,50 @@ public class Favorites extends AppCompatActivity {
         public long getItemId(int position) {
             return 0;
         }
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        savedmeme = savedMemes.getString("faveMeme", "").split("\\|");
+
+        //
+        //How many save memes
+        numberOfFave = savedmeme.length;
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        savedMemeArray = new int[savedmeme.length];
+        //Loop through all the elements in the "savedmeme" array of string
+        int index = 0;
+        for (String meme : savedmeme) {
+            String category = meme.split(",")[0].toString();
+            String arrayIndexStr = meme.split(",")[1].toString();
+            int arrayIndex = Integer.parseInt(arrayIndexStr);
+
+            //Build the array of saved meme
+            if (category.contains("Animation")) {
+                savedMemeArray[index] = ImageAdapter.animoo[arrayIndex];
+                index++;
+            } else if (category.contains("Game")) {
+                savedMemeArray[index] = ImageAdapter.gameo[arrayIndex];
+                index++;
+            } else if (category.contains("Politics")) {
+                savedMemeArray[index] = ImageAdapter.politico[arrayIndex];
+                index++;
+            } else if (category.contains("Sports")) {
+                savedMemeArray[index] = ImageAdapter.sporto[arrayIndex];
+                index++;
+            }
+        }
+
+        memeGrid = (GridView) findViewById(R.id.gridviewFave);
+        memeGrid.setAdapter(new FaveAdapter(this));
+
+
     }
 
 
