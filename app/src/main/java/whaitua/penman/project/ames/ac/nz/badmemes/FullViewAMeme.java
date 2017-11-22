@@ -1,18 +1,30 @@
 package whaitua.penman.project.ames.ac.nz.badmemes;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 public class FullViewAMeme extends AppCompatActivity {
@@ -32,6 +44,8 @@ public class FullViewAMeme extends AppCompatActivity {
 
     //public Uri imagePath;
     String imagePathStr = "";
+
+    private int imageDrawableId;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,35 +78,44 @@ public class FullViewAMeme extends AppCompatActivity {
         //imagePath = Uri.parse("android.resource://whaitua.penman.project.ames.ac.nz.badmemes/" + R.drawable.sample_1);
         imagePathStr = "android.resource://whaitua.penman.project.ames.ac.nz.badmemes/";
 
+
         if (fromStr.contains("MemeView")) {
             //
             if (ImageAdapter.category.contains("Game")) {
                 imageView.setImageResource(imageAdapter.gameo[position]);
                 imagePathStr = imagePathStr + imageAdapter.gameo[position];
+                imageDrawableId = imageAdapter.gameo[position];
             } else if (ImageAdapter.category.contains("Animation")) {
                 imageView.setImageResource(imageAdapter.animoo[position]);
                 imagePathStr = imagePathStr + imageAdapter.animoo[position];
+                imageDrawableId = imageAdapter.animoo[position];
             } else if (ImageAdapter.category.contains("Politics")) {
                 imageView.setImageResource(imageAdapter.politico[position]);
                 imagePathStr = imagePathStr + imageAdapter.politico[position];
+                imageDrawableId = imageAdapter.politico[position];
             } else if (ImageAdapter.category.contains("Sports")) {
                 imageView.setImageResource(imageAdapter.sporto[position]);
                 imagePathStr = imagePathStr + imageAdapter.sporto[position];
+                imageDrawableId = imageAdapter.sporto[position];
             }
         } else {
             category = beep.getExtras().getString("category").toString();
             if (category.contains("Game")) {
                 imageView.setImageResource(imageAdapter.gameo[position]);
                 imagePathStr = imagePathStr + imageAdapter.gameo[position];
+                imageDrawableId = imageAdapter.gameo[position];
             } else if (category.contains("Animation")) {
                 imageView.setImageResource(imageAdapter.animoo[position]);
                 imagePathStr = imagePathStr + imageAdapter.animoo[position];
+                imageDrawableId = imageAdapter.animoo[position];
             } else if (category.contains("Politics")) {
                 imageView.setImageResource(imageAdapter.politico[position]);
                 imagePathStr = imagePathStr + imageAdapter.politico[position];
+                imageDrawableId = imageAdapter.politico[position];
             } else if (category.contains("Sports")) {
                 imageView.setImageResource(imageAdapter.sporto[position]);
                 imagePathStr = imagePathStr + imageAdapter.sporto[position];
+                imageDrawableId = imageAdapter.sporto[position];
             }
 
         }
@@ -123,22 +146,75 @@ public class FullViewAMeme extends AppCompatActivity {
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+        //Ask permission to WRITE and READ SDCard
+        askForPermission("android.permission.WRITE_EXTERNAL_STORAGE", 1);
+
         shareBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Drawable mDrawable = imageView.getDrawable();
+
+                /*Drawable mDrawable = imageView.getDrawable();
                 Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
 
                 Uri uri = Uri.parse("http://www.google.com");
-                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image I want to share", null);
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image I want to share", null);*/
 
-                if (path != null) {
-                    uri = Uri.parse(path);
+                try {
+                    Bitmap memeImage = BitmapFactory.decodeResource(getResources(), imageDrawableId);
+                    //replace "R.drawable.bubble_green" with the image resource you want to share from drawable
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    memeImage.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+
+                    // you can create a new file name "test.jpg" in sdcard folder.
+                    File f = new File(Environment.getExternalStorageDirectory() + File.separator + "test.jpg");
+                    if (!f.exists()) {
+                        f.createNewFile();
+                    } else {
+                        f.delete();
+                        try {
+                            f.createNewFile();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // write the bytes in file
+                    FileOutputStream fo = new FileOutputStream(f);
+                    fo.write(bytes.toByteArray());
+
+                    // remember close de FileOutput
+                    fo.close();
+                    Toast.makeText(getApplicationContext(), "Write test.png successfully", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Can't write test.jpg", Toast.LENGTH_SHORT).show();
                 }
 
-                Intent shareIntent = new Intent();
+
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Hi"); //set your subject
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "How are you"); //set your message
+
+                String imagePath = Environment.getExternalStorageDirectory() + File.separator + "test.jpg";
+
+                File imageFileToShare = new File(imagePath);
+
+                Uri share = Uri.fromFile(imageFileToShare);
+
+                shareIntent.putExtra(Intent.EXTRA_STREAM, share);
+
+                startActivity(Intent.createChooser(shareIntent, "Share Image"));
+
+
+                /*Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
                 shareIntent.setType("image/*");
                 startActivity(Intent.createChooser(shareIntent, "Share Image"));
 
@@ -215,6 +291,41 @@ public class FullViewAMeme extends AppCompatActivity {
         sharingIntent.putExtra(Intent.EXTRA_STREAM, imagePath);
         startActivity(Intent.createChooser(sharingIntent, "Share Image Using"));
     }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(FullViewAMeme.this, permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(FullViewAMeme.this, permission)) {
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(FullViewAMeme.this, new String[]{permission}, requestCode);
+            } else {
+                ActivityCompat.requestPermissions(FullViewAMeme.this, new String[]{permission}, requestCode);
+            }
+        } else {
+            //createDirectory();
+            // Toast.makeText(this, "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    ////////////////////////////////////////////////////////
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.v("onRequestpermission", requestCode + "//");
+        if (ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED) {
+            switch (requestCode) {
+                //Location
+                case 4:
+                    //createDirectory();
+            }
+
+        } else {
+            Log.v("Permission Denied", requestCode + "else//");
+        }
+    }
+
 }
 
 
