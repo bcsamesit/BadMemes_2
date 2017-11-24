@@ -10,5 +10,8 @@
     <string name="enter_text">Enter something to share</string>
     <string name="shared_text">Shared Text</string>
     <string name="shared_image">Shared Image</string>
+    <string name="under_construction">Under Construction</string>
+
+    <string name="facebook_app_id"></string>
 
 </resources>

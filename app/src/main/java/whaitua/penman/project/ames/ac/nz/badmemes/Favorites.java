@@ -3,8 +3,10 @@ package whaitua.penman.project.ames.ac.nz.badmemes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,7 +18,7 @@ import android.widget.Toast;
 
 public class Favorites extends AppCompatActivity {
 
-    private ImageView backBtn;
+
     private GridView memeGrid;
     //
     private int numberOfFave = 1;
@@ -26,7 +28,18 @@ public class Favorites extends AppCompatActivity {
     private String selectedCategory;
     private int arrayIndex;
 
+
     private SharedPreferences savedMemes;
+
+    //////////////////////////////////////////////////////////////////////////
+    /*
+     FINAL TASKS;
+
+    FACEBOOK SDK
+
+    SHARED PREFERENCE FOR UPLOAD
+     */
+    //////////////////////////////////////////////////////////////////////////
 
 
     @Override
@@ -37,7 +50,9 @@ public class Favorites extends AppCompatActivity {
 
         /////////////////////////////////////////////////////////////////////////////////////////
         savedMemes = getSharedPreferences(FullViewAMeme.SAVED_MEMES, 0);
+
         savedmeme = savedMemes.getString("faveMeme", "").split("\\|");
+
 
         //How many save memes
         numberOfFave = savedmeme.length;
@@ -48,25 +63,31 @@ public class Favorites extends AppCompatActivity {
         //Loop through all the elements in the "savedmeme" array of string
         int index = 0;
         for (String meme : savedmeme) {
-            String category = meme.split(",")[0].toString();
-            String arrayIndexStr = meme.split(",")[1].toString();
-            int arrayIndex = Integer.parseInt(arrayIndexStr);
 
-            //Build the array of saved meme
-            if (category.contains("Animation")) {
-                savedMemeArray[index] = ImageAdapter.animoo[arrayIndex];
-                index++;
-            } else if (category.contains("Game")) {
-                savedMemeArray[index] = ImageAdapter.gameo[arrayIndex];
-                index++;
-            } else if (category.contains("Politics")) {
-                savedMemeArray[index] = ImageAdapter.politico[arrayIndex];
-                index++;
-            } else if (category.contains("Sports")) {
-                savedMemeArray[index] = ImageAdapter.sporto[arrayIndex];
-                index++;
+            if (meme.split(",").length < 2) {
+
+            } else {
+                String category = meme.split(",")[0].toString();
+                String arrayIndexStr = meme.split(",")[1].toString();
+                int arrayIndex = Integer.parseInt(arrayIndexStr);
+
+                //Build the array of saved meme
+                if (category.contains("Animation")) {
+                    savedMemeArray[index] = ImageAdapter.animoo[arrayIndex];
+                    index++;
+                } else if (category.contains("Game")) {
+                    savedMemeArray[index] = ImageAdapter.gameo[arrayIndex];
+                    index++;
+                } else if (category.contains("Politics")) {
+                    savedMemeArray[index] = ImageAdapter.politico[arrayIndex];
+                    index++;
+                } else if (category.contains("Sports")) {
+                    savedMemeArray[index] = ImageAdapter.sporto[arrayIndex];
+                    index++;
+                }
             }
         }
+
 
         memeGrid = (GridView) findViewById(R.id.gridviewFave);
         memeGrid.setAdapter(new FaveAdapter(this));
@@ -140,7 +161,6 @@ public class Favorites extends AppCompatActivity {
             } else {
                 imageView = (ImageView) convertView;
             }
-
             //////////////////////////////////////////////////////////////////////////////
             imageView.setImageResource(savedMemeArray[position]);
 
@@ -183,35 +203,40 @@ public class Favorites extends AppCompatActivity {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+
         savedMemeArray = new int[savedmeme.length];
         //Loop through all the elements in the "savedmeme" array of string
         int index = 0;
         for (String meme : savedmeme) {
             String category = meme.split(",")[0].toString();
-            String arrayIndexStr = meme.split(",")[1].toString();
-            int arrayIndex = Integer.parseInt(arrayIndexStr);
 
-            //Build the array of saved meme
-            if (category.contains("Animation")) {
-                savedMemeArray[index] = ImageAdapter.animoo[arrayIndex];
-                index++;
-            } else if (category.contains("Game")) {
-                savedMemeArray[index] = ImageAdapter.gameo[arrayIndex];
-                index++;
-            } else if (category.contains("Politics")) {
-                savedMemeArray[index] = ImageAdapter.politico[arrayIndex];
-                index++;
-            } else if (category.contains("Sports")) {
-                savedMemeArray[index] = ImageAdapter.sporto[arrayIndex];
-                index++;
+            if (meme.split(",").length < 2) {
+
+            } else {
+                String arrayIndexStr = meme.split(",")[1].toString();
+                int arrayIndex = Integer.parseInt(arrayIndexStr);
+
+                //Build the array of saved meme
+
+                if (category.contains("Animation")) {
+                    savedMemeArray[index] = ImageAdapter.animoo[arrayIndex];
+                    index++;
+                } else if (category.contains("Game")) {
+                    savedMemeArray[index] = ImageAdapter.gameo[arrayIndex];
+                    index++;
+                } else if (category.contains("Politics")) {
+                    savedMemeArray[index] = ImageAdapter.politico[arrayIndex];
+                    index++;
+                } else if (category.contains("Sports")) {
+                    savedMemeArray[index] = ImageAdapter.sporto[arrayIndex];
+                    index++;
+                }
             }
+
+
         }
 
         memeGrid = (GridView) findViewById(R.id.gridviewFave);
         memeGrid.setAdapter(new FaveAdapter(this));
-
-
     }
-
-
 }

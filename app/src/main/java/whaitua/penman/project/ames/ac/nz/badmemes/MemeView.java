@@ -21,7 +21,6 @@ public class MemeView extends AppCompatActivity {
         setContentView(R.layout.memeview_layout);
 
 
-
         ///////////////////////////////////////////////////////////////////////
         //Extract the data associated with Intent
         category = getIntent().getExtras().getString("Category");

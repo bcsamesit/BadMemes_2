@@ -153,13 +153,18 @@ public class FullViewAMeme extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(FullViewAMeme.this, Uploads.class);
+                startActivity(intent);
+            }
+        });
+
                 /*Drawable mDrawable = imageView.getDrawable();
                 Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
 
                 Uri uri = Uri.parse("http://www.google.com");
                 String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image I want to share", null);*/
 
-                try {
+                /*try {
                     Bitmap memeImage = BitmapFactory.decodeResource(getResources(), imageDrawableId);
                     //replace "R.drawable.bubble_green" with the image resource you want to share from drawable
 
@@ -186,11 +191,11 @@ public class FullViewAMeme extends AppCompatActivity {
 
                     // remember close de FileOutput
                     fo.close();
-                    Toast.makeText(getApplicationContext(), "Write test.png successfully", Toast.LENGTH_SHORT).show();
+
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Can't write test.jpg", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -208,7 +213,7 @@ public class FullViewAMeme extends AppCompatActivity {
 
                 shareIntent.putExtra(Intent.EXTRA_STREAM, share);
 
-                startActivity(Intent.createChooser(shareIntent, "Share Image"));
+                startActivity(Intent.createChooser(shareIntent, "Share Image"));*/
 
 
                 /*Intent shareIntent = new Intent();
@@ -225,9 +230,9 @@ public class FullViewAMeme extends AppCompatActivity {
                 Uri imagePath = Uri.parse(imagePathStr);
                 // share image
                 shareImage(imagePath);
-                */
+
             }
-        });
+        }); */
 
 
         //If the meme image is in the favorite list, hide the "add" button

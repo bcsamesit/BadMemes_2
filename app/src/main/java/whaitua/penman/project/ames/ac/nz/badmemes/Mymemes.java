@@ -37,7 +37,8 @@ public class Mymemes extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Mymemes.this, MainActivity.class);
-                startActivity(intent);}
+                startActivity(intent);
+            }
         });
 
         starBtn.setOnClickListener(new View.OnClickListener() {
